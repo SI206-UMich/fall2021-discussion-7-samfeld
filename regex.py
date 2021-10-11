@@ -1,6 +1,7 @@
 import re
 import os
 import unittest
+import datetime as dt
 
 def read_file(filename):
     """ Return a list of the lines in the file with the passed filename """
@@ -33,7 +34,23 @@ def find_word(string_list):
     # loop through the found words and add the words to your empty list 
 
     #return the list of all words that start with the letter B, E, or T
-    pass
+    wrds_w_digits=[]
+    to_match=("[\D]+[\d]+[\D]")
+    for line in string_list:
+        print(line)
+        for wrd in line:
+            if re.match(to_match, wrd):
+                if re.match("^B", wrd):
+                    wrds_w_digits.append(wrd)
+                elif re.match("^E", wrd):
+                    wrds_w_digits.append(wrd)
+                elif re.match("^T", wrd):
+                    wrds_w_digits.append(wrd)
+                else:
+                    continue
+    print(wrds_w_digits)
+    return wrds_w_digits
+        
 
 
 def find_days(string_list):
@@ -50,7 +67,14 @@ def find_days(string_list):
     # loop through the found dates and only add the days to your empty list 
     
     #return the list of days
-    pass
+    lst_days=[]
+    to_match=("%m/%d/%Y")
+    for line in string_list:
+        for wrd in line:
+            wrd=dt.datetime.strptime(wrd, "%m/%d/%Y")
+            if re.match(to_match, wrd):
+                lst_days.append(wrd)
+    return lst_days
 
 def find_domains(string_list):
     """ Return a list of web address domains from the list of strings the domains of a wbsite are after www. """
