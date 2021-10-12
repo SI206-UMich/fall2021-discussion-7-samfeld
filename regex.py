@@ -24,78 +24,66 @@ def find_word(string_list):
     """ Return a list of words that contain three digit numbers in the middle. """
 
     # initialize an empty list
-
-    # define the regular expression
-
-    # loop through each line of the string list 
-
-    # find all the words that match the regular expression in each line
-    
-    # loop through the found words and add the words to your empty list 
-
-    #return the list of all words that start with the letter B, E, or T
     wrds_w_digits=[]
-    to_match=("[\D]+[\d]+[\D]")
+    # define the regular expression
+    to_match=r"\b([A-Za-z]+)\d{3}([A-Za-z]+)"
+    # loop through each line of the string list 
     for line in string_list:
-        print(line)
-        for wrd in line:
-            if re.match(to_match, wrd):
-                if re.match("^B", wrd):
-                    wrds_w_digits.append(wrd)
-                elif re.match("^E", wrd):
-                    wrds_w_digits.append(wrd)
-                elif re.match("^T", wrd):
-                    wrds_w_digits.append(wrd)
-                else:
-                    continue
-    print(wrds_w_digits)
+    # find all the words that match the regular expression in each line
+        match=re.findall(to_match, line)
+    # loop through the found words and add the words to your empty list 
+        for word in match:
+            wrds_w_digits.append(word)
     return wrds_w_digits
-        
-
 
 def find_days(string_list):
     """ Return a list of days from the list of strings the dates format in the text are MM/DD/YYYY. """  
-
     # initialize an empty list
-
-    # define the regular expression
-
-    # loop through each line of the string list
-    
-    # find all the dates that match the regular expression in each line
-    
-    # loop through the found dates and only add the days to your empty list 
-    
-    #return the list of days
     lst_days=[]
-    to_match=("%m/%d/%Y")
+    # define the regular expression
+    to_match=r'(\b\d{1,2})[\/](\d{1,2})[\/](\d{4})'
+    # loop through each line of the string list
     for line in string_list:
-        for wrd in line:
-            wrd=dt.datetime.strptime(wrd, "%m/%d/%Y")
-            if re.match(to_match, wrd):
-                lst_days.append(wrd)
+    # find all the dates that match the regular expression in each line
+        match=re.findall(to_match, line)
+    # loop through the found dates and only add the days to your empty list 
+        for i in match:
+            lst_days.append(i[1])
+    #return the list of days
     return lst_days
 
 def find_domains(string_list):
     """ Return a list of web address domains from the list of strings the domains of a wbsite are after www. """
 
     # initialize an empty list
-
+    """domain_list=[]
     # define the regular expression
-
+    expression=r"https?:[\/\/\][\w.]+"
     # loop through each line of the string list
-
+    for line in string_list:
     # find all the domains that match the regular expression in each line
-
+        match=re.finall(expression,line)
     # loop through the found domains
-
+        for url in match:
     # get the domain name by splitting the (//) after the https or http to get the website name
+            domain=url.split("//")[1].strip("www.")
+            domain_list.append(domain)"""
     # then strip the www. to get only the domain name
 
     # add the domains to your empty list
     
     #return the list of domains
-    pass
+    #return lst_domains
+    lst_domains=[]
+    to_match=r"https?:[\/\/\][\w.]+"
+    #to_match2=("http://")
+    for line in string_list:
+        for url in line.split():
+            if re.match(to_match, url):
+                print(url)
+                domain=url.split("//")[1].strip("www.").strip("/")
+                lst_domains.append(domain)
+    return lst_domains
 
 class TestAllMethods(unittest.TestCase):
 
